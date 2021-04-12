@@ -6,32 +6,15 @@ import by.antonov.shapes.observer.Observer;
 
 import java.util.List;
 
-public class Cube implements Observable {
+public class Cube extends Shape implements Observable {
     private long id;
     private Point point;
     private double sideLength;
     private List<Observer> observerList;
 
     public Cube(long id, Point point, double sideLength) {
-        this.id = id;
-        this.point = point;
+        super(id, point);
         this.sideLength = sideLength;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
     }
 
     public double getSideLength() {
@@ -69,17 +52,13 @@ public class Cube implements Observable {
         if (!(o instanceof Cube)) return false;
 
         Cube cube = (Cube) o;
-        return getId() == cube.getId()
-                && Double.compare(cube.getSideLength(), getSideLength()) == 0
-                && getPoint() != null ? getPoint().equals(cube.getPoint()) : cube.getPoint() == null;
+        return Double.compare(cube.getSideLength(), getSideLength()) == 0;
     }
 
     @Override
     public int hashCode() {
-        int result;
         long longBits;
-        result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getPoint() != null ? getPoint().hashCode() : 0);
+        int result = super.hashCode();
         longBits = Double.doubleToLongBits(getSideLength());
         result = 31 * result + (int) (longBits ^ (longBits >>> 32));
         return result;
@@ -88,8 +67,7 @@ public class Cube implements Observable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Cube{");
-        sb.append("id=").append(id);
-        sb.append(", point=").append(point.toString());
+        sb.append(super.toString());
         sb.append(", sideLength=").append(sideLength);
         sb.append('}');
         return sb.toString();
