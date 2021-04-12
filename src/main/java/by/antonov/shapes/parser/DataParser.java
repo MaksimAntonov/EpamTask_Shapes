@@ -1,5 +1,6 @@
 package by.antonov.shapes.parser;
 
+import by.antonov.shapes.validator.CustomFileValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,17 @@ public class DataParser {
 
     private static final String SEPARATOR = "\s";
     private static final int REQUIRED_ARRAY_LENGTH = 4;
+
+    public static Map<CubeFieldsName, Double> parseCubeDataFromStringWithValidating(String dataForParsing) throws CustomException {
+        if (dataForParsing == null) {
+            throw new CustomException("dataForParsing can't be null");
+        }
+        if (!CustomFileValidator.rowValidator(dataForParsing)) {
+            throw new CustomException("Incorrect dataForParsing");
+        }
+
+        return parseCubeDataFromString(dataForParsing);
+    }
 
     public static Map<CubeFieldsName, Double> parseCubeDataFromString(String dataForParsing) throws CustomException {
         if (dataForParsing == null) {

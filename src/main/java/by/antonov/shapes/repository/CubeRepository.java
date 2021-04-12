@@ -4,6 +4,7 @@ import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.exception.CustomException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,13 +25,17 @@ public class CubeRepository {
         cubeList.add(cube);
     }
 
-    public void addAll() {}
+    public void addAll(Collection<Cube> cubeCollection) {
+        cubeList.addAll(cubeCollection);
+    }
 
     public void remove(Cube cube) {
         cubeList.remove(cube);
     }
 
-    public void removeAll() {}
+    public void removeAll(Collection<Cube> cubeCollection) {
+        cubeList.removeAll(cubeCollection);
+    }
 
     public Cube getItem(int index) throws CustomException {
         int cubeListSize = cubeList.size();
