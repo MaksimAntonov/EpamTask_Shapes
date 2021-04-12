@@ -14,6 +14,7 @@ public class DataParser {
     static Logger logger = LogManager.getLogger();
 
     private static final String SEPARATOR = "\s";
+    private static final int REQUIRED_ARRAY_LENGTH = 4;
 
     public static Map<CubeFieldsName, Double> parseCubeDataFromString(String dataForParsing) throws CustomException {
         if (dataForParsing == null) {
@@ -23,7 +24,7 @@ public class DataParser {
         String[] stringArray = dataForParsing.split(SEPARATOR);
 
         Map<CubeFieldsName, Double> mapCubeData = new EnumMap<>(CubeFieldsName.class);
-        if (stringArray.length != 4
+        if (stringArray.length != REQUIRED_ARRAY_LENGTH
                 || !CubeDataValidator.isCoordinate(stringArray[0])
                 || !CubeDataValidator.isCoordinate(stringArray[1])
                 || !CubeDataValidator.isCoordinate(stringArray[2])

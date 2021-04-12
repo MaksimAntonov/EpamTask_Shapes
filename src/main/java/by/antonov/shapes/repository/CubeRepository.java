@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CubeRepository {
-    private static CubeRepository INSTANCE;
+    private static CubeRepository instance;
     private List<Cube> cubeList;
 
     private CubeRepository() {}
 
     public static CubeRepository getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new CubeRepository();
+        if (instance == null) {
+            instance = new CubeRepository();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void add(Cube cube) {

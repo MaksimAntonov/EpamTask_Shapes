@@ -2,16 +2,19 @@ package by.antonov.shapes.warehouse;
 
 import by.antonov.shapes.entity.CubeProperties;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CubeWarehouse {
-    private static CubeWarehouse INSTANCE = new CubeWarehouse();
-    private Map<Long, CubeProperties> mapCube;
+    private static final CubeWarehouse instance = new CubeWarehouse();
+    private final Map<Long, CubeProperties> mapCube;
 
-    private CubeWarehouse() {}
+    private CubeWarehouse() {
+        this.mapCube = new HashMap<>();
+    }
 
     public static CubeWarehouse getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
     public CubeProperties getProperty(long id) {
