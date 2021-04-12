@@ -3,6 +3,7 @@ package by.antonov.shapes.observer.impl;
 import by.antonov.shapes.action.CubeAction;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.Point;
 import by.antonov.shapes.observer.CubeEvent;
 import by.antonov.shapes.observer.Observer;
 import by.antonov.shapes.warehouse.CubeWarehouse;
@@ -21,6 +22,8 @@ public class CubeObserver implements Observer {
         cubeProperties.setSideSquare(sideSquare);
         double cubeSquare = cubeAction.calculateCubeSquare(cube);
         cubeProperties.setCubeSquare(cubeSquare);
+        Point oppositePoint = cubeAction.calculateOppositePoint(cube);
+        cubeProperties.setOppositePoint(oppositePoint);
 
         cubeWarehouse.setProperty(cube.getId(), cubeProperties);
     }

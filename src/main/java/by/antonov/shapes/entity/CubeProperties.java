@@ -5,12 +5,21 @@ public class CubeProperties {
     private double volume;
     private double sideSquare;
     private double cubeSquare;
+    private Point oppositePoint;
 
     public CubeProperties(long id, double volume, double sideSquare, double cubeSquare) {
         this.id = id;
         this.volume = volume;
         this.sideSquare = sideSquare;
         this.cubeSquare = cubeSquare;
+    }
+
+    public CubeProperties(long id, double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
+        this.id = id;
+        this.volume = volume;
+        this.sideSquare = sideSquare;
+        this.cubeSquare = cubeSquare;
+        this.oppositePoint = oppositePoint;
     }
 
     public long getId() {
@@ -43,5 +52,13 @@ public class CubeProperties {
 
     public void setCubeSquare(double cubeSquare) {
         this.cubeSquare = cubeSquare;
+    }
+
+    public Point getOppositePoint() {
+        return oppositePoint;
+    }
+
+    public void setOppositePoint(Point oppositePoint) {
+        this.oppositePoint = oppositePoint;
     }
 }
