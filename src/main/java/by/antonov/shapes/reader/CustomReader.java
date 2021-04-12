@@ -63,8 +63,4 @@ public class CustomReader {
         }
         return path;
     }
-
-    public String test(String filename) {
-        return getClass().getResource(filename).toString();
-    }
 }
