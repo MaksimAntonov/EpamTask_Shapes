@@ -22,7 +22,7 @@ public class DataParser {
             throw new CustomException("dataForParsing can't be null");
         }
         if (!CustomFileValidator.rowValidator(dataForParsing)) {
-            throw new CustomException("Incorrect dataForParsing");
+            throw new CustomException("Incorrect dataForParsing " + dataForParsing);
         }
 
         return parseCubeDataFromString(dataForParsing);
