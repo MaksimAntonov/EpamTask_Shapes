@@ -9,4 +9,4 @@ target/
 
 # app
 logs/*
-app.java
+/src/main/java/app.java
