@@ -9,4 +9,6 @@ target/
 
 # app
 logs/*
-/src/main/java/app.java
+
+#other
+*.zip
