@@ -3,24 +3,10 @@ package by.antonov.shapes.action;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.Point;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class CubeActionTest {
-    private CubeAction cubeAction;
-
-    @BeforeMethod
-    public void setUp() {
-        cubeAction = new CubeAction();
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        cubeAction = null;
-    }
-
     @DataProvider(name = "calculateVolumeDataTest")
     public Object[][] calculateVolumeDataTest() {
         return new Object[][] {
@@ -53,21 +39,21 @@ public class CubeActionTest {
 
     @Test(dataProvider = "calculateVolumeDataTest")
     public void calculateVolumeTest(Cube cube, double expected) {
-        double actual = cubeAction.calculateCubeVolume(cube);
+        double actual = CubeAction.calculateCubeVolume(cube);
 
         Assert.assertEquals(actual, expected, 0.0001);
     }
 
     @Test(dataProvider = "calculateSideSquareDataTest")
     public void calculateSideSquareTest(Cube cube, double expected) {
-        double actual = cubeAction.calculateCubeSideSquare(cube);
+        double actual = CubeAction.calculateCubeSideSquare(cube);
 
         Assert.assertEquals(actual, expected, 0.0001);
     }
 
     @Test(dataProvider = "calculateCubeSquareDataTest")
     public void calculateCubeSquareTest(Cube cube, double expected) {
-        double actual = cubeAction.calculateCubeSquare(cube);
+        double actual = CubeAction.calculateCubeSquare(cube);
 
         Assert.assertEquals(actual, expected, 0.0001);
     }

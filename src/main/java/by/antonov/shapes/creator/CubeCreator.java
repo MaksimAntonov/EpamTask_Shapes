@@ -24,7 +24,6 @@ public class CubeCreator {
 
     public CubeCreator addToRepository() {
         CubeRepository repository = CubeRepository.getInstance();
-
         repository.add(currentElement);
 
         return this;

@@ -12,14 +12,14 @@ import org.apache.logging.log4j.Logger;
 public class CubeAction {
     private static final Logger logger = LogManager.getLogger();
 
-    public double calculateCubeVolume(Cube cube) {
+    public static double calculateCubeVolume(Cube cube) {
         double volume = Math.pow(cube.getSideLength(), 3);
         logger.info("Volume for Cube(" + cube.toString() + ") is " + volume);
 
         return volume;
     }
 
-    public double calculateCubeSideSquare(Cube cube) {
+    public static double calculateCubeSideSquare(Cube cube) {
         double sideLength = cube.getSideLength();
         double sideSquare = sideLength * sideLength;
         logger.info("Side square for Cube(" + cube.toString() + ") is " + sideSquare);
@@ -27,7 +27,7 @@ public class CubeAction {
         return sideSquare;
     }
 
-    public double calculateCubeSquare(Cube cube) {
+    public static double calculateCubeSquare(Cube cube) {
         double sideSquare = calculateCubeSideSquare(cube);
         double cubeSquare = 6 * sideSquare;
         logger.info("Cube square for Cube(" + cube.toString() + ") is " + cubeSquare);
@@ -35,7 +35,7 @@ public class CubeAction {
         return cubeSquare;
     }
 
-    public Point calculateOppositePoint(Cube cube) {
+    public static Point calculateOppositePoint(Cube cube) {
         Point basePoint = cube.getPoint();
         double sideLength = cube.getSideLength();
 
@@ -47,8 +47,7 @@ public class CubeAction {
         return newPoint;
     }
 
-    public double calculateRatioOfCuboidAfterCutByAxel(Cube cube) throws CustomException {
-        CubeAnalysis cubeAnalysis = new CubeAnalysis();
+    public static double calculateRatioOfCuboidAfterCutByAxel(Cube cube) throws CustomException {
         CubeProperties cubeProperties = CubeWarehouse.getInstance().getProperty(cube.getId());
         Point basePoint = cube.getPoint();
         Point oppositePoint = cubeProperties.getOppositePoint();
@@ -57,7 +56,7 @@ public class CubeAction {
                 cuttedSideLengthY1, cuttedSideLengthY2,
                 cuttedSideLengthZ1, cuttedSideLengthZ2;
 
-        if (cubeAnalysis.isCuttedByCoordinateAxeX(cube)) {
+        if (CubeAnalysis.isCuttedByCoordinateAxeX(cube)) {
             cuttedSideLengthX1 = Math.abs(basePoint.getX());
             cuttedSideLengthX2 = Math.abs(oppositePoint.getX());
         } else {
@@ -65,7 +64,7 @@ public class CubeAction {
             cuttedSideLengthX2 = cube.getSideLength();
         }
 
-        if (cubeAnalysis.isCuttedByCoordinateAxeY(cube)) {
+        if (CubeAnalysis.isCuttedByCoordinateAxeY(cube)) {
             cuttedSideLengthY1 = Math.abs(basePoint.getY());
             cuttedSideLengthY2 = Math.abs(oppositePoint.getY());
         } else {
@@ -73,7 +72,7 @@ public class CubeAction {
             cuttedSideLengthY2 = cube.getSideLength();
         }
 
-        if (cubeAnalysis.isCuttedByCoordinateAxeZ(cube)) {
+        if (CubeAnalysis.isCuttedByCoordinateAxeZ(cube)) {
             cuttedSideLengthZ1 = Math.abs(basePoint.getZ());
             cuttedSideLengthZ2 = Math.abs(oppositePoint.getZ());
         } else {
@@ -87,7 +86,7 @@ public class CubeAction {
         return volumeForCuboid1 / volumeForCuboid2;
     }
 
-    public double calculateCuboidVolume(double lengthByX, double lengthByY, double lengthByZ) {
+    public static double calculateCuboidVolume(double lengthByX, double lengthByY, double lengthByZ) {
         return lengthByX * lengthByY * lengthByZ;
     }
 }

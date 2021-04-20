@@ -3,24 +3,10 @@ package by.antonov.shapes.action;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.Point;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class CubeAnalysisTest {
-    private CubeAnalysis cubeAnalysis;
-
-    @BeforeMethod
-    public void setUp() {
-        this.cubeAnalysis = new CubeAnalysis();
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        this.cubeAnalysis = null;
-    }
-
     @DataProvider(name = "onCoordinateAxisDataTest")
     public Object[][] onCoordinateAxisDataTest() {
         return new Object[][] {
@@ -33,7 +19,7 @@ public class CubeAnalysisTest {
 
     @Test (dataProvider = "onCoordinateAxisDataTest")
     public void onCoordinateAxisTest(Cube cube, boolean expected) {
-        boolean actual = cubeAnalysis.onCoordinateAxis(cube);
+        boolean actual = CubeAnalysis.onCoordinateAxis(cube);
 
         Assert.assertEquals(actual, expected);
     }
