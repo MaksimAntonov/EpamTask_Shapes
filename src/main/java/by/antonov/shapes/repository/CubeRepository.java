@@ -5,12 +5,13 @@ import by.antonov.shapes.exception.CustomException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CubeRepository {
     private static CubeRepository instance;
-    private List<Cube> cubeList;
+    private final List<Cube> cubeList = new ArrayList<>();
 
     private CubeRepository() {}
 
@@ -37,6 +38,8 @@ public class CubeRepository {
         cubeList.removeAll(cubeCollection);
     }
 
+    public void clear() { cubeList.clear(); }
+
     public Cube getItem(int index) throws CustomException {
         int cubeListSize = cubeList.size();
         if (index < 0 || index >= cubeListSize) {
@@ -53,6 +56,10 @@ public class CubeRepository {
         return new ArrayList<>(this.cubeList);
     }
 
+    public int getItemCount() {
+        return cubeList.size();
+    }
+
     public List<Cube> query(Specification specification) {
         List<Cube> queryList = new ArrayList<>();
         for (Cube cube : cubeList) {
@@ -65,7 +72,10 @@ public class CubeRepository {
     }
 
     public List<Cube> queryStream(Specification specification) {
-        List<Cube> queryList = cubeList.stream().filter(specification::specify).collect(Collectors.toList());
-        return queryList;
+        return cubeList.stream().filter(specification::specify).collect(Collectors.toList());
+    }
+
+    public List<Cube> sort(Comparator<Cube> comparator) {
+        return cubeList.stream().sorted(comparator).collect(Collectors.toList());
     }
 }

@@ -3,10 +3,10 @@ package by.antonov.shapes.repository.impl;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.repository.Specification;
 
-public class IdSpecification implements Specification {
-    private long id;
+public class CubeIdSpecification implements Specification {
+    private final long id;
 
-    public IdSpecification(long id) {
+    public CubeIdSpecification(long id) {
         this.id = id;
     }
 

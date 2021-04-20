@@ -4,13 +4,12 @@ import by.antonov.shapes.observer.CubeEvent;
 import by.antonov.shapes.observer.Observable;
 import by.antonov.shapes.observer.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cube extends Shape implements Observable {
-    private long id;
-    private Point point;
     private double sideLength;
-    private List<Observer> observerList;
+    private final List<Observer> observerList = new ArrayList<>();
 
     public Cube(long id, Point point, double sideLength) {
         super(id, point);
@@ -23,6 +22,7 @@ public class Cube extends Shape implements Observable {
 
     public void setSideLength(double sideLength) {
         this.sideLength = sideLength;
+        notifyObservers();
     }
 
     @Override

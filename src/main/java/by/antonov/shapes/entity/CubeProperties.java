@@ -7,13 +7,6 @@ public class CubeProperties {
     private double cubeSquare;
     private Point oppositePoint;
 
-    public CubeProperties(long id, double volume, double sideSquare, double cubeSquare) {
-        this.id = id;
-        this.volume = volume;
-        this.sideSquare = sideSquare;
-        this.cubeSquare = cubeSquare;
-    }
-
     public CubeProperties(long id, double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
         this.id = id;
         this.volume = volume;
@@ -60,5 +53,17 @@ public class CubeProperties {
 
     public void setOppositePoint(Point oppositePoint) {
         this.oppositePoint = oppositePoint;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CubeProperties{");
+        sb.append("id=").append(id);
+        sb.append(", volume=").append(volume);
+        sb.append(", sideSquare=").append(sideSquare);
+        sb.append(", cubeSquare=").append(cubeSquare);
+        sb.append(", oppositePoint=").append(oppositePoint);
+        sb.append('}');
+        return sb.toString();
     }
 }

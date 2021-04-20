@@ -12,7 +12,7 @@ import by.antonov.shapes.entity.CubeFieldsName;
 import by.antonov.shapes.validator.CubeDataValidator;
 
 public class DataParser {
-    static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     private static final String SEPARATOR = "\s";
     private static final int REQUIRED_ARRAY_LENGTH = 4;
@@ -50,7 +50,7 @@ public class DataParser {
         mapCubeData.put(CubeFieldsName.COORDINATE_Z, Double.parseDouble(stringArray[2]));
         mapCubeData.put(CubeFieldsName.SIDE_LENGTH, Double.parseDouble(stringArray[3]));
 
-        logger.info("Map with cube data: " + mapCubeData.toString());
+        logger.info("Map with cube data: " + mapCubeData);
 
         return mapCubeData;
     }

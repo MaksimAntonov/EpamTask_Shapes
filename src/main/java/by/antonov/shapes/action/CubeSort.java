@@ -10,26 +10,27 @@ public class CubeSort {
     private final CubeRepository repository = CubeRepository.getInstance();
 
     public List<Cube> sortById() {
-        List<Cube> cubeList = repository.getCubeList();
-        cubeList.sort(CubeComparator.ID);
+        List<Cube> cubeList = repository.sort(CubeComparator.ID);
         return cubeList;
     }
 
     public List<Cube> sortByCoordinateX() {
-        List<Cube> cubeList = repository.getCubeList();
-        cubeList.sort(CubeComparator.COORDINATE_X);
+        List<Cube> cubeList = repository.sort(CubeComparator.COORDINATE_X);
         return cubeList;
     }
 
     public List<Cube> sortByCoordinateY() {
-        List<Cube> cubeList = repository.getCubeList();
-        cubeList.sort(CubeComparator.COORDINATE_Y);
+        List<Cube> cubeList = repository.sort(CubeComparator.COORDINATE_Y);
         return cubeList;
     }
 
     public List<Cube> sortByCoordinateZ() {
-        List<Cube> cubeList = repository.getCubeList();
-        cubeList.sort(CubeComparator.COORDINATE_Z);
+        List<Cube> cubeList = repository.sort(CubeComparator.COORDINATE_Z);
+        return cubeList;
+    }
+
+    public List<Cube> sortBySideLength() {
+        List<Cube> cubeList = repository.sort(CubeComparator.SIDE_LENGTH);
         return cubeList;
     }
 }

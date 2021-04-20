@@ -4,12 +4,13 @@ import by.antonov.shapes.entity.Cube;
 
 import by.antonov.shapes.entity.CubeProperties;
 import by.antonov.shapes.entity.Point;
+import by.antonov.shapes.exception.CustomException;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CubeAction {
-    static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public double calculateCubeVolume(Cube cube) {
         double volume = Math.pow(cube.getSideLength(), 3);
@@ -46,7 +47,7 @@ public class CubeAction {
         return newPoint;
     }
 
-    public double calculateRatioOfCuboidAfterCutByAxel(Cube cube) {
+    public double calculateRatioOfCuboidAfterCutByAxel(Cube cube) throws CustomException {
         CubeAnalysis cubeAnalysis = new CubeAnalysis();
         CubeProperties cubeProperties = CubeWarehouse.getInstance().getProperty(cube.getId());
         Point basePoint = cube.getPoint();

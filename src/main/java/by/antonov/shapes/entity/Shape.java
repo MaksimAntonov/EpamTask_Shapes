@@ -38,7 +38,6 @@ public abstract class Shape {
     @Override
     public int hashCode() {
         int result;
-        long longBits;
         result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + (getPoint() != null ? getPoint().hashCode() : 0);
         return result;
