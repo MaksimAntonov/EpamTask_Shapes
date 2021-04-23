@@ -22,10 +22,7 @@ public class CubeWarehouse {
         return instance;
     }
 
-    public CubeProperties getProperty(long id) throws CustomException {
-        if (!mapCube.containsKey(id)) {
-            throw new CustomException("Element with key = " + id + " doesn't exist");
-        }
+    public CubeProperties getProperty(long id) {
         CubeProperties properties = mapCube.get(id);
         logger.info("Get property id=" + id + " from Warehouse " + properties.toString());
         return mapCube.get(id);

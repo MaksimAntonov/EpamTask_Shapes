@@ -26,17 +26,11 @@ public class CubeCreator {
         CubeRepository repository = CubeRepository.getInstance();
         repository.add(currentElement);
 
-        return this;
-    }
-
-    public CubeCreator addToWarehouse() {
-        CubeAction cubeAction = new CubeAction();
         CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
-
-        double cubeVolume = cubeAction.calculateCubeVolume(currentElement);
-        double cubeSideSquare = cubeAction.calculateCubeSideSquare(currentElement);
-        double cubeSquare = cubeAction.calculateCubeSquare(currentElement);
-        Point oppositePoint = cubeAction.calculateOppositePoint(currentElement);
+        double cubeVolume = CubeAction.calculateCubeVolume(currentElement);
+        double cubeSideSquare = CubeAction.calculateCubeSideSquare(currentElement);
+        double cubeSquare = CubeAction.calculateCubeSquare(currentElement);
+        Point oppositePoint = CubeAction.calculateOppositePoint(currentElement);
 
         CubeProperties cubeProperties = new CubeProperties(currentElement.getId(), cubeVolume, cubeSideSquare, cubeSquare, oppositePoint);
         cubeWarehouse.setProperty(currentElement.getId(), cubeProperties);

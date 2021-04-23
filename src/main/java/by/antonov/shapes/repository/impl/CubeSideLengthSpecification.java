@@ -27,6 +27,6 @@ public class CubeSideLengthSpecification implements Specification {
     @Override
     public boolean specify(Cube cube) {
         double sideLength = cube.getSideLength();
-        return ((sideLength > minSideLength) && (sideLength < maxSideLength));
+        return ((sideLength >= minSideLength) && (sideLength <= maxSideLength));
     }
 }

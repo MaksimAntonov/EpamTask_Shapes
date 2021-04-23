@@ -41,7 +41,7 @@ public class app {
             Map<CubeFieldsName, Double> dataForFactory = DataParser.parseCubeDataFromString(string);
             Cube cube = CubeFactory.getCubeElement(dataForFactory);
 
-            creator.doWith(cube).addToRepository().addToWarehouse().attacheObserver();
+            creator.doWith(cube).addToRepository().attacheObserver();
         }
     }
 }

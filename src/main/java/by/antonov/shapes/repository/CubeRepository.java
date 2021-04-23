@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CubeRepository {
@@ -38,6 +39,7 @@ public class CubeRepository {
         cubeList.removeAll(cubeCollection);
     }
 
+    // For tests
     public void clear() { cubeList.clear(); }
 
     public Cube getItem(int index) throws CustomException {
@@ -71,8 +73,23 @@ public class CubeRepository {
         return queryList;
     }
 
+    public List<Cube> query(Predicate<Cube> specification) {
+        List<Cube> queryList = new ArrayList<>();
+        for (Cube cube : cubeList) {
+            if (specification.test(cube)) {
+                queryList.add(cube);
+            }
+        }
+
+        return queryList;
+    }
+
     public List<Cube> queryStream(Specification specification) {
         return cubeList.stream().filter(specification::specify).collect(Collectors.toList());
+    }
+
+    public List<Cube> queryStream(Predicate<Cube> specification) {
+        return cubeList.stream().filter(specification).collect(Collectors.toList());
     }
 
     public List<Cube> sort(Comparator<Cube> comparator) {

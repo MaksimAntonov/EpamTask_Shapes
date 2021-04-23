@@ -18,25 +18,18 @@ public class CubeObserver implements Observer {
     public void parameterChanged(CubeEvent event) {
         Cube cube = event.getSource();
         logger.info("Element " + cube.getId() + " was changed.");
-        CubeAction cubeAction = new CubeAction();
         CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
-        CubeProperties cubeProperties;
+        CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
 
-        try {
-            cubeProperties = cubeWarehouse.getProperty(cube.getId());
-            double volume = cubeAction.calculateCubeVolume(cube);
-            cubeProperties.setVolume(volume);
-            double sideSquare = cubeAction.calculateCubeSideSquare(cube);
-            cubeProperties.setSideSquare(sideSquare);
-            double cubeSquare = cubeAction.calculateCubeSquare(cube);
-            cubeProperties.setCubeSquare(cubeSquare);
-            Point oppositePoint = cubeAction.calculateOppositePoint(cube);
-            cubeProperties.setOppositePoint(oppositePoint);
+        double volume = CubeAction.calculateCubeVolume(cube);
+        cubeProperties.setVolume(volume);
+        double sideSquare = CubeAction.calculateCubeSideSquare(cube);
+        cubeProperties.setSideSquare(sideSquare);
+        double cubeSquare = CubeAction.calculateCubeSquare(cube);
+        cubeProperties.setCubeSquare(cubeSquare);
+        Point oppositePoint = CubeAction.calculateOppositePoint(cube);
+        cubeProperties.setOppositePoint(oppositePoint);
 
-            cubeWarehouse.setProperty(cube.getId(), cubeProperties);
-        } catch (CustomException e) {
-            logger.error("Update error. " + e.getMessage());
-        }
-
+        cubeWarehouse.setProperty(cube.getId(), cubeProperties);
     }
 }

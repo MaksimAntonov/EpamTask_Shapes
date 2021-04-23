@@ -34,16 +34,9 @@ public class CubeVolumeSpecification implements Specification {
     @Override
     public boolean specify(Cube cube) {
         CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
-        boolean result = false;
-        try {
-            CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
+        CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
 
-            double volume = cubeProperties.getVolume();
-            result = ((volume > minVolume) && (volume < maxVolume));
-        } catch (CustomException e) {
-            logger.warn("Element with id=" + cube.getId() + " doesn't exist in CubeWarehouse.");
-        }
-
-        return result;
+        double volume = cubeProperties.getVolume();
+        return ((volume >= minVolume) && (volume <= maxVolume));
     }
 }

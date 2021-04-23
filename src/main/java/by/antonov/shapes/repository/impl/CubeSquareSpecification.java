@@ -34,16 +34,9 @@ public class CubeSquareSpecification implements Specification {
     @Override
     public boolean specify(Cube cube) {
         CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
-        boolean result = false;
-        try {
-            CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
+        CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
 
-            double cubeSquare = cubeProperties.getCubeSquare();
-            result = ((cubeSquare > minCubeSquare) && (cubeSquare < maxCubeSquare));
-        } catch (CustomException e) {
-            logger.warn("Element with id=" + cube.getId() + " doesn't exist in CubeWarehouse.");
-        }
-
-        return result;
+        double cubeSquare = cubeProperties.getCubeSquare();
+        return ((cubeSquare >= minCubeSquare) && (cubeSquare <= maxCubeSquare));
     }
 }

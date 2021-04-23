@@ -3,6 +3,7 @@ package by.antonov.shapes.comparator;
 import by.antonov.shapes.entity.Cube;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class CubeComparator {
     public static Comparator<Cube> ID = Comparator.comparing(Cube::getId);

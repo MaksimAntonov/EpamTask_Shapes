@@ -16,6 +16,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class RepositoryTest {
     private final CubeRepository Repository = CubeRepository.getInstance();
@@ -47,11 +48,24 @@ public class RepositoryTest {
     public Object[][] queryDataTest() {
         return new Object[][] {
                 {new CubeIdSpecification(3), Arrays.asList(cube3)},
-                {CubeSideLengthSpecification.lessThen(5), Arrays.asList(cube1, cube2, cube5)},
-                {CubeSideLengthSpecification.moreThen(5), Arrays.asList(cube3, cube6)},
-                {CubeSideLengthSpecification.range(3,8), Arrays.asList(cube2, cube3, cube4, cube5)},
+                {CubeSideLengthSpecification.lessThen(5), Arrays.asList(cube1, cube2, cube4, cube5)},
+                {CubeSideLengthSpecification.moreThen(5), Arrays.asList(cube3, cube4, cube6)},
+                {CubeSideLengthSpecification.range(3,8), Arrays.asList(cube1, cube2, cube3, cube4, cube5)},
                 {CubeVolumeSpecification.lessThen(30), Arrays.asList(cube1)},
                 {CubeSquareSpecification.range(100, 300), Arrays.asList(cube3, cube4)},
+        };
+    }
+
+    @DataProvider (name = "queryPredicateDataTest")
+    public Object[][] queryPredicateDataTest() {
+        return new Object[][] {
+                {CubePredicateFactory.forID(3), Arrays.asList(cube3)},
+                {CubePredicateFactory.lessThen(5, Cube::getSideLength), Arrays.asList(cube1, cube2, cube4, cube5)},
+                {CubePredicateFactory.moreThen(5, Cube::getSideLength), Arrays.asList(cube3, cube4, cube6)},
+                {CubePredicateFactory.range(3,8, Cube::getSideLength), Arrays.asList(cube1, cube2, cube3, cube4, cube5)},
+                {CubePredicateFactory.range(100, 300,
+                        (cube) -> CubeWarehouse.getInstance().getProperty(cube.getId()).getCubeSquare()),
+                        Arrays.asList(cube3, cube4)}
         };
     }
 
@@ -69,8 +83,22 @@ public class RepositoryTest {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test (dataProvider = "queryPredicateDataTest")
+    public void findPredicateTest(Predicate<Cube> specification, List<Cube> expected) {
+        List<Cube> actual = Repository.query(specification);
+
+        Assert.assertEquals(actual, expected);
+    }
+
     @Test (dataProvider = "queryDataTest")
     public void findStreamTest(Specification specification, List<Cube> expected) {
+        List<Cube> actual = Repository.queryStream(specification);
+
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test (dataProvider = "queryPredicateDataTest")
+    public void findStreamPredicateTest(Predicate<Cube> specification, List<Cube> expected) {
         List<Cube> actual = Repository.queryStream(specification);
 
         Assert.assertEquals(actual, expected);
