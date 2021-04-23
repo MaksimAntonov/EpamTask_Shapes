@@ -1,5 +1,7 @@
 package by.antonov.shapes.repository;
 
+import static by.antonov.shapes.repository.CubePredicateFactory.*;
+
 import by.antonov.shapes.comparator.CubeComparator;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.CubeProperties;
@@ -60,47 +62,47 @@ public class RepositoryTest {
     public Object[][] queryPredicateDataTest() {
         return new Object[][] {
                 {
-                    CubePredicateFactory.createPredicate(
+                    createPredicate(
                             Cube::getId,
-                            CubePredicateFactory.valueEqualTo((long) 3)),
+                            valueEqualTo((long) 3)),
                     Arrays.asList(cube3)
                 },
                 {
-                    CubePredicateFactory.createPredicate(
+                    createPredicate(
                             Cube::getSideLength,
-                            CubePredicateFactory.valueLessThen((double) 5)),
+                            valueLessThen((double) 5)),
                     Arrays.asList(cube1, cube2, cube4, cube5)
                 },
                 {
-                    CubePredicateFactory.createPredicate(
+                    createPredicate(
                             Cube::getSideLength,
-                            CubePredicateFactory.valueMoreThen((double) 5)),
+                            valueMoreThen((double) 5)),
                     Arrays.asList(cube3, cube4, cube6)
                 },
                 {
-                    CubePredicateFactory.createPredicate(
+                    createPredicate(
                             Cube::getSideLength,
-                            CubePredicateFactory.valueMoreThen((double) 3)
-                                    .and(CubePredicateFactory.valueLessThen((double) 8))
+                            valueMoreThen((double) 3)
+                                    .and(valueLessThen((double) 8))
                     ),
                     Arrays.asList(cube1, cube2, cube3, cube4, cube5)
                 },
                 {
-                    CubePredicateFactory.forCubeProperties(
-                            CubePredicateFactory.createPredicate(
+                    forCubeProperties(
+                            createPredicate(
                                     CubeProperties::getVolume,
-                                    CubePredicateFactory.valueLessThen((double) 30))
+                                    valueLessThen((double) 30))
                     ),
                     Arrays.asList(cube1)
                 },
                 {
-                    CubePredicateFactory.forCubeProperties(
-                            CubePredicateFactory.createPredicate(
+                    forCubeProperties(
+                            createPredicate(
                                     CubeProperties::getCubeSquare,
-                                    CubePredicateFactory.valueMoreThen((double) 100)).and(
-                                            CubePredicateFactory.createPredicate(
+                                    valueMoreThen((double) 100)).and(
+                                            createPredicate(
                                                     CubeProperties::getCubeSquare,
-                                                    CubePredicateFactory.valueLessThen((double) 300)
+                                                    valueLessThen((double) 300)
                                             )
                             )
                     ),
