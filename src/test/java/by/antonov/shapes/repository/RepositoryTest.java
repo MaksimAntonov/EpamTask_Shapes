@@ -59,13 +59,53 @@ public class RepositoryTest {
     @DataProvider (name = "queryPredicateDataTest")
     public Object[][] queryPredicateDataTest() {
         return new Object[][] {
-                {CubePredicateFactory.forID(3), Arrays.asList(cube3)},
-                {CubePredicateFactory.lessThen(5, Cube::getSideLength), Arrays.asList(cube1, cube2, cube4, cube5)},
-                {CubePredicateFactory.moreThen(5, Cube::getSideLength), Arrays.asList(cube3, cube4, cube6)},
-                {CubePredicateFactory.range(3,8, Cube::getSideLength), Arrays.asList(cube1, cube2, cube3, cube4, cube5)},
-                {CubePredicateFactory.range(100, 300,
-                        (cube) -> CubeWarehouse.getInstance().getProperty(cube.getId()).getCubeSquare()),
-                        Arrays.asList(cube3, cube4)}
+                {
+                    CubePredicateFactory.createPredicate(
+                            Cube::getId,
+                            CubePredicateFactory.valueEqualTo((long) 3)),
+                    Arrays.asList(cube3)
+                },
+                {
+                    CubePredicateFactory.createPredicate(
+                            Cube::getSideLength,
+                            CubePredicateFactory.valueLessThen((double) 5)),
+                    Arrays.asList(cube1, cube2, cube4, cube5)
+                },
+                {
+                    CubePredicateFactory.createPredicate(
+                            Cube::getSideLength,
+                            CubePredicateFactory.valueMoreThen((double) 5)),
+                    Arrays.asList(cube3, cube4, cube6)
+                },
+                {
+                    CubePredicateFactory.createPredicate(
+                            Cube::getSideLength,
+                            CubePredicateFactory.valueMoreThen((double) 3)
+                                    .and(CubePredicateFactory.valueLessThen((double) 8))
+                    ),
+                    Arrays.asList(cube1, cube2, cube3, cube4, cube5)
+                },
+                {
+                    CubePredicateFactory.forCubeProperties(
+                            CubePredicateFactory.createPredicate(
+                                    CubeProperties::getVolume,
+                                    CubePredicateFactory.valueLessThen((double) 30))
+                    ),
+                    Arrays.asList(cube1)
+                },
+                {
+                    CubePredicateFactory.forCubeProperties(
+                            CubePredicateFactory.createPredicate(
+                                    CubeProperties::getCubeSquare,
+                                    CubePredicateFactory.valueMoreThen((double) 100)).and(
+                                            CubePredicateFactory.createPredicate(
+                                                    CubeProperties::getCubeSquare,
+                                                    CubePredicateFactory.valueLessThen((double) 300)
+                                            )
+                            )
+                    ),
+                    Arrays.asList(cube3, cube4)
+                }
         };
     }
 

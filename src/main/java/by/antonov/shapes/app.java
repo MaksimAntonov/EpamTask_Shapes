@@ -29,7 +29,6 @@ public class app {
         } catch (CustomException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void readAndCreateCube() throws CustomException {
