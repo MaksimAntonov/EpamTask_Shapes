@@ -1,69 +1,75 @@
 package by.antonov.shapes.entity;
 
 public class CubeProperties {
-    private long id;
+
+  private final double volume;
+  private final double sideSquare;
+  private final double cubeSquare;
+  private final Point oppositePoint;
+
+  private CubeProperties(double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
+    this.volume = volume;
+    this.sideSquare = sideSquare;
+    this.cubeSquare = cubeSquare;
+    this.oppositePoint = oppositePoint;
+  }
+
+  public double getVolume() {
+    return volume;
+  }
+
+  public double getSideSquare() {
+    return sideSquare;
+  }
+
+  public double getCubeSquare() {
+    return cubeSquare;
+  }
+
+  public Point getOppositePoint() {
+    return oppositePoint;
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("CubeProperties{");
+    sb.append(", volume=").append(volume);
+    sb.append(", sideSquare=").append(sideSquare);
+    sb.append(", cubeSquare=").append(cubeSquare);
+    sb.append(", oppositePoint=").append(oppositePoint);
+    sb.append('}');
+    return sb.toString();
+  }
+
+  public static class Builder {
+
     private double volume;
     private double sideSquare;
     private double cubeSquare;
     private Point oppositePoint;
 
-    public CubeProperties(long id, double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
-        this.id = id;
-        this.volume = volume;
-        this.sideSquare = sideSquare;
-        this.cubeSquare = cubeSquare;
-        this.oppositePoint = oppositePoint;
+    public Builder setVolume(double volume) {
+      this.volume = volume;
+      return this;
     }
 
-    public long getId() {
-        return id;
+    public Builder setSideSquare(double sideSquare) {
+      this.sideSquare = sideSquare;
+      return this;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Builder setCubeSquare(double cubeSquare) {
+      this.cubeSquare = cubeSquare;
+      return this;
     }
 
-    public double getVolume() {
-        return volume;
+    public Builder setOppositePoint(Point oppositePoint) {
+      this.oppositePoint = oppositePoint;
+      return this;
     }
 
-    public void setVolume(double volume) {
-        this.volume = volume;
+    public CubeProperties build() {
+      return new CubeProperties(volume, sideSquare, cubeSquare, oppositePoint);
     }
-
-    public double getSideSquare() {
-        return sideSquare;
-    }
-
-    public void setSideSquare(double sideSquare) {
-        this.sideSquare = sideSquare;
-    }
-
-    public double getCubeSquare() {
-        return cubeSquare;
-    }
-
-    public void setCubeSquare(double cubeSquare) {
-        this.cubeSquare = cubeSquare;
-    }
-
-    public Point getOppositePoint() {
-        return oppositePoint;
-    }
-
-    public void setOppositePoint(Point oppositePoint) {
-        this.oppositePoint = oppositePoint;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("CubeProperties{");
-        sb.append("id=").append(id);
-        sb.append(", volume=").append(volume);
-        sb.append(", sideSquare=").append(sideSquare);
-        sb.append(", cubeSquare=").append(cubeSquare);
-        sb.append(", oppositePoint=").append(oppositePoint);
-        sb.append('}');
-        return sb.toString();
-    }
+  }
 }

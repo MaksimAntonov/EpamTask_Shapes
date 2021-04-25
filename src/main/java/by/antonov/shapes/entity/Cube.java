@@ -3,73 +3,98 @@ package by.antonov.shapes.entity;
 import by.antonov.shapes.observer.CubeEvent;
 import by.antonov.shapes.observer.Observable;
 import by.antonov.shapes.observer.Observer;
+import java.util.HashSet;
+import java.util.Set;
+// TODO проверить тексты ошибок/логов
+public class Cube implements Observable {
 
-import java.util.ArrayList;
-import java.util.List;
+  private final long id;
+  private Point point;
+  private double sideLength;
+  private final Set<Observer> observers = new HashSet<>();
 
-public class Cube extends Shape implements Observable {
-    private double sideLength;
-    private final List<Observer> observerList = new ArrayList<>();
+  Cube(long id, Point point, double sideLength) {
+    this.id = id;
+    this.point = point;
+    this.sideLength = sideLength;
+  }
 
-    public Cube(long id, Point point, double sideLength) {
-        super(id, point);
-        this.sideLength = sideLength;
+  public long getId() {
+    return id;
+  }
+
+  public Point getPoint() {
+    return point;
+  }
+
+  public void setPoint(Point point) {
+    this.point = point;
+    notifyObservers();
+  }
+
+  public double getSideLength() {
+    return sideLength;
+  }
+
+  public void setSideLength(double sideLength) {
+    this.sideLength = sideLength;
+    notifyObservers();
+  }
+
+  @Override
+  public void attach(Observer observer) {
+    if (observer != null) {
+      observers.add(observer);
+    }
+  }
+
+  @Override
+  public void detach(Observer observer) {
+    if (observer != null) {
+      observers.remove(observer);
+    }
+  }
+
+  @Override
+  public void notifyObservers() {
+    CubeEvent event = new CubeEvent(this);
+
+    observers.forEach(observer -> observer.parameterChanged(event));
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (!(getClass().equals(other.getClass()))) {
+      return false;
     }
 
-    public double getSideLength() {
-        return sideLength;
-    }
+    Cube cube = (Cube) other;
+    return (getId() == cube.getId())
+        && (getPoint() != null ? getPoint().equals(cube.getPoint()) : cube.getPoint() == null)
+        && (cube.getSideLength() == getSideLength());
+  }
 
-    public void setSideLength(double sideLength) {
-        this.sideLength = sideLength;
-        notifyObservers();
-    }
+  @Override
+  public int hashCode() {
+    int result;
+    long temp;
+    result = (int) (getId() ^ (getId() >>> 32));
+    result = 31 * result + (getPoint() != null ? getPoint().hashCode() : 0);
+    temp = Double.doubleToLongBits(getSideLength());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    return result;
+  }
 
-    @Override
-    public void attach(Observer observer) {
-        if (observer != null) {
-            observerList.add(observer);
-        }
-    }
-
-    @Override
-    public void detach(Observer observer) {
-        if (observer != null) {
-            observerList.remove(observer);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        CubeEvent event = new CubeEvent(this);
-
-        observerList.forEach(observer -> observer.parameterChanged(event));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cube)) return false;
-
-        Cube cube = (Cube) o;
-        return Double.compare(cube.getSideLength(), getSideLength()) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        long longBits;
-        int result = super.hashCode();
-        longBits = Double.doubleToLongBits(getSideLength());
-        result = 31 * result + (int) (longBits ^ (longBits >>> 32));
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Cube{");
-        sb.append(super.toString());
-        sb.append(", sideLength=").append(sideLength);
-        sb.append('}');
-        return sb.toString();
-    }
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Cube{");
+    sb.append("id=").append(id);
+    sb.append(", point=").append(point.toString());
+    sb.append(", sideLength=").append(sideLength);
+    sb.append('}');
+    return sb.toString();
+  }
 }

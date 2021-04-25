@@ -2,97 +2,93 @@ package by.antonov.shapes.repository;
 
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.exception.CustomException;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CubeRepository {
-    private static CubeRepository instance;
-    private final List<Cube> cubeList = new ArrayList<>();
 
-    private CubeRepository() {}
+  private static final CubeRepository INSTANCE = new CubeRepository();
+  private final Map<Long, Cube> cubes = new HashMap<>();
 
-    public static CubeRepository getInstance() {
-        if (instance == null) {
-            instance = new CubeRepository();
-        }
-        return instance;
+  private CubeRepository() {
+  }
+
+  public static CubeRepository getInstance() {
+    return INSTANCE;
+  }
+
+  public void add(Cube cube) {
+    cubes.put(cube.getId(), cube);
+  }
+
+  public void addAll(Collection<Cube> cubeCollection) {
+    cubeCollection.forEach(cube -> cubes.put(cube.getId(), cube));
+  }
+
+  public void remove(Long cubeId) {
+    cubes.remove(cubeId);
+  }
+
+  public void removeAll(Collection<Cube> cubeCollection) {
+    cubeCollection.forEach(cube -> cubes.remove(cube.getId()));
+  }
+
+  // For tests
+  void clear() {
+    cubes.clear();
+  }
+
+  public Cube getItem(Long cubeId) throws CustomException {
+    Cube cube = cubes.get(cubeId);
+    if (cube == null) {
+      throw new CustomException("Cube with id=" + cubeId + " isn't registered");
     }
 
-    public void add(Cube cube) {
-        cubeList.add(cube);
+    return cube;
+  }
+
+  public Collection<Cube> getAll() {
+    return Collections.unmodifiableCollection(cubes.values());
+  }
+
+  public List<Cube> query(Specification specification) {
+    List<Cube> queryList = new ArrayList<>();
+    for (Cube cube : cubes.values()) {
+      if (specification.specify(cube)) {
+        queryList.add(cube);
+      }
     }
 
-    public void addAll(Collection<Cube> cubeCollection) {
-        cubeList.addAll(cubeCollection);
+    return queryList;
+  }
+
+  public List<Cube> query(Predicate<Cube> specification) {
+    List<Cube> queryList = new ArrayList<>();
+    for (Cube cube : cubes.values()) {
+      if (specification.test(cube)) {
+        queryList.add(cube);
+      }
     }
 
-    public void remove(Cube cube) {
-        cubeList.remove(cube);
-    }
+    return queryList;
+  }
 
-    public void removeAll(Collection<Cube> cubeCollection) {
-        cubeList.removeAll(cubeCollection);
-    }
+  public List<Cube> queryStream(Specification specification) {
+    return cubes.values().stream().filter(specification::specify).collect(Collectors.toList());
+  }
 
-    // For tests
-    public void clear() { cubeList.clear(); }
+  public List<Cube> queryStream(Predicate<Cube> specification) {
+    return cubes.values().stream().filter(specification).collect(Collectors.toList());
+  }
 
-    public Cube getItem(int index) throws CustomException {
-        int cubeListSize = cubeList.size();
-        if (index < 0 || index >= cubeListSize) {
-            throw new CustomException("Index " + index + " for getItem out of range [0, " + cubeListSize +"]");
-        }
-        return cubeList.get(index);
-    }
-
-    public void setItem(int index, Cube cube) {
-        cubeList.set(index, cube);
-    }
-
-    public List<Cube> getCubeList() {
-        return new ArrayList<>(this.cubeList);
-    }
-
-    public int getItemCount() {
-        return cubeList.size();
-    }
-
-    public List<Cube> query(Specification specification) {
-        List<Cube> queryList = new ArrayList<>();
-        for (Cube cube : cubeList) {
-            if (specification.specify(cube)) {
-                queryList.add(cube);
-            }
-        }
-
-        return queryList;
-    }
-
-    public List<Cube> query(Predicate<Cube> specification) {
-        List<Cube> queryList = new ArrayList<>();
-        for (Cube cube : cubeList) {
-            if (specification.test(cube)) {
-                queryList.add(cube);
-            }
-        }
-
-        return queryList;
-    }
-
-    public List<Cube> queryStream(Specification specification) {
-        return cubeList.stream().filter(specification::specify).collect(Collectors.toList());
-    }
-
-    public List<Cube> queryStream(Predicate<Cube> specification) {
-        return cubeList.stream().filter(specification).collect(Collectors.toList());
-    }
-
-    public List<Cube> sort(Comparator<Cube> comparator) {
-        return cubeList.stream().sorted(comparator).collect(Collectors.toList());
-    }
+  public List<Cube> sort(Comparator<Cube> comparator) {
+    return cubes.values().stream().sorted(comparator).collect(Collectors.toList());
+  }
 }
