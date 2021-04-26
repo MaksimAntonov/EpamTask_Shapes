@@ -2,37 +2,37 @@ package by.antonov.shapes.repository.impl;
 
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.CubeProperties;
-import by.antonov.shapes.repository.Specification;
+import by.antonov.shapes.repository.CubeSpecification;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CubeSquareSpecification implements Specification {
+public class CubeSquareSpecificationImpl implements CubeSpecification {
 
   private final Logger logger = LogManager.getLogger();
 
   private final double minCubeSquare;
   private final double maxCubeSquare;
 
-  private CubeSquareSpecification(double minCubeSquare, double maxCubeSquare) {
+  private CubeSquareSpecificationImpl(double minCubeSquare, double maxCubeSquare) {
     this.minCubeSquare = minCubeSquare;
     this.maxCubeSquare = maxCubeSquare;
   }
 
-  public static CubeSquareSpecification lessThen(double maxCubeSquare) {
-    return new CubeSquareSpecification(0, maxCubeSquare);
+  public static CubeSquareSpecificationImpl lessThen(double maxCubeSquare) {
+    return new CubeSquareSpecificationImpl(0, maxCubeSquare);
   }
 
-  public static CubeSquareSpecification moreThen(double minCubeSquare) {
-    return new CubeSquareSpecification(minCubeSquare, Double.MAX_VALUE);
+  public static CubeSquareSpecificationImpl moreThen(double minCubeSquare) {
+    return new CubeSquareSpecificationImpl(minCubeSquare, Double.MAX_VALUE);
   }
 
-  public static CubeSquareSpecification range(double minCubeSquare, double maxCubeSquare) {
-    return new CubeSquareSpecification(minCubeSquare, maxCubeSquare);
+  public static CubeSquareSpecificationImpl range(double minCubeSquare, double maxCubeSquare) {
+    return new CubeSquareSpecificationImpl(minCubeSquare, maxCubeSquare);
   }
 
   @Override
-  public boolean specify(Cube cube) {
+  public boolean test(Cube cube) {
     CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
     CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
 

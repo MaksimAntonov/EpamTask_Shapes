@@ -1,6 +1,6 @@
 package by.antonov.shapes.observer;
 
-public interface Observer {
+public interface CubeObserver {
 
   void parameterChanged(CubeEvent event);
 }

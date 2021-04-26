@@ -1,17 +1,17 @@
 package by.antonov.shapes.entity;
 
 import by.antonov.shapes.observer.CubeEvent;
-import by.antonov.shapes.observer.Observable;
-import by.antonov.shapes.observer.Observer;
+import by.antonov.shapes.observer.CubeObservable;
+import by.antonov.shapes.observer.CubeObserver;
 import java.util.HashSet;
 import java.util.Set;
-// TODO проверить тексты ошибок/логов
-public class Cube implements Observable {
+
+public class Cube implements CubeObservable {
 
   private final long id;
   private Point point;
   private double sideLength;
-  private final Set<Observer> observers = new HashSet<>();
+  private final Set<CubeObserver> observers = new HashSet<>();
 
   Cube(long id, Point point, double sideLength) {
     this.id = id;
@@ -42,14 +42,14 @@ public class Cube implements Observable {
   }
 
   @Override
-  public void attach(Observer observer) {
+  public void attach(CubeObserver observer) {
     if (observer != null) {
       observers.add(observer);
     }
   }
 
   @Override
-  public void detach(Observer observer) {
+  public void detach(CubeObserver observer) {
     if (observer != null) {
       observers.remove(observer);
     }

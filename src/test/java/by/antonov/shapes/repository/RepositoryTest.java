@@ -11,10 +11,10 @@ import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.CubeFactory;
 import by.antonov.shapes.entity.CubeProperties;
 import by.antonov.shapes.entity.Point;
-import by.antonov.shapes.repository.impl.CubeIdSpecification;
-import by.antonov.shapes.repository.impl.CubeSideLengthSpecification;
-import by.antonov.shapes.repository.impl.CubeSquareSpecification;
-import by.antonov.shapes.repository.impl.CubeVolumeSpecification;
+import by.antonov.shapes.repository.impl.CubeIdSpecificationImpl;
+import by.antonov.shapes.repository.impl.CubeSideLengthSpecificationImpl;
+import by.antonov.shapes.repository.impl.CubeSquareSpecificationImpl;
+import by.antonov.shapes.repository.impl.CubeVolumeSpecificationImpl;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -55,12 +55,12 @@ public class RepositoryTest {
   @DataProvider(name = "queryDataTest")
   public Object[][] queryDataTest() {
     return new Object[][]{
-        {new CubeIdSpecification(3), Arrays.asList(cube3)},
-        {CubeSideLengthSpecification.lessThen(5), Arrays.asList(cube1, cube2, cube4, cube5)},
-        {CubeSideLengthSpecification.moreThen(5), Arrays.asList(cube3, cube4, cube6)},
-        {CubeSideLengthSpecification.range(3, 8), Arrays.asList(cube1, cube2, cube3, cube4, cube5)},
-        {CubeVolumeSpecification.lessThen(30), Arrays.asList(cube1)},
-        {CubeSquareSpecification.range(100, 300), Arrays.asList(cube3, cube4)},
+        {new CubeIdSpecificationImpl(3), Arrays.asList(cube3)},
+        {CubeSideLengthSpecificationImpl.lessThen(5), Arrays.asList(cube1, cube2, cube4, cube5)},
+        {CubeSideLengthSpecificationImpl.moreThen(5), Arrays.asList(cube3, cube4, cube6)},
+        {CubeSideLengthSpecificationImpl.range(3, 8), Arrays.asList(cube1, cube2, cube3, cube4, cube5)},
+        {CubeVolumeSpecificationImpl.lessThen(30), Arrays.asList(cube1)},
+        {CubeSquareSpecificationImpl.range(100, 300), Arrays.asList(cube3, cube4)},
     };
   }
 
@@ -125,7 +125,7 @@ public class RepositoryTest {
   }
 
   @Test(dataProvider = "queryDataTest")
-  public void findTest(Specification specification, List<Cube> expected) {
+  public void findTest(CubeSpecification specification, List<Cube> expected) {
     List<Cube> actual = Repository.query(specification);
 
     Assert.assertEquals(actual, expected);
@@ -139,7 +139,7 @@ public class RepositoryTest {
   }
 
   @Test(dataProvider = "queryDataTest")
-  public void findStreamTest(Specification specification, List<Cube> expected) {
+  public void findStreamTest(CubeSpecification specification, List<Cube> expected) {
     List<Cube> actual = Repository.queryStream(specification);
 
     Assert.assertEquals(actual, expected);

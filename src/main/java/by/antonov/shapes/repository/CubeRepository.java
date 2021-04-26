@@ -58,17 +58,6 @@ public class CubeRepository {
     return Collections.unmodifiableCollection(cubes.values());
   }
 
-  public List<Cube> query(Specification specification) {
-    List<Cube> queryList = new ArrayList<>();
-    for (Cube cube : cubes.values()) {
-      if (specification.specify(cube)) {
-        queryList.add(cube);
-      }
-    }
-
-    return queryList;
-  }
-
   public List<Cube> query(Predicate<Cube> specification) {
     List<Cube> queryList = new ArrayList<>();
     for (Cube cube : cubes.values()) {
@@ -78,10 +67,6 @@ public class CubeRepository {
     }
 
     return queryList;
-  }
-
-  public List<Cube> queryStream(Specification specification) {
-    return cubes.values().stream().filter(specification::specify).collect(Collectors.toList());
   }
 
   public List<Cube> queryStream(Predicate<Cube> specification) {

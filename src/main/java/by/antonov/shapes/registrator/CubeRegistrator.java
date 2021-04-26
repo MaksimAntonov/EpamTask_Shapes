@@ -2,7 +2,7 @@ package by.antonov.shapes.registrator;
 
 import by.antonov.shapes.action.CubeAction;
 import by.antonov.shapes.entity.Cube;
-import by.antonov.shapes.observer.impl.CubeObserver;
+import by.antonov.shapes.observer.impl.CubeObserverImpl;
 import by.antonov.shapes.repository.CubeRepository;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 
@@ -29,7 +29,7 @@ public class CubeRegistrator {
   }
 
   public CubeRegistrator attacheObserver() {
-    CubeObserver cubeObserver = new CubeObserver();
+    CubeObserverImpl cubeObserver = new CubeObserverImpl();
 
     currentElement.attach(cubeObserver);
     return this;
