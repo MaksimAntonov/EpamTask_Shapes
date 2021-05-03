@@ -13,15 +13,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CubeRepository {
-
-  private static final CubeRepository INSTANCE = new CubeRepository();
+  private static final CubeRepository instance = new CubeRepository();
   private final Map<Long, Cube> cubes = new HashMap<>();
 
   private CubeRepository() {
   }
 
   public static CubeRepository getInstance() {
-    return INSTANCE;
+    return instance;
   }
 
   public void add(Cube cube) {

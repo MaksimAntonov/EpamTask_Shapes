@@ -10,14 +10,14 @@ public class CubeWarehouse {
 
   private static final Logger logger = LogManager.getLogger();
 
-  private static final CubeWarehouse INSTANCE = new CubeWarehouse();
+  private static final CubeWarehouse instance = new CubeWarehouse();
   private final Map<Long, CubeProperties> mapCube = new HashMap<>();
 
   private CubeWarehouse() {
   }
 
   public static CubeWarehouse getInstance() {
-    return INSTANCE;
+    return instance;
   }
 
   public CubeProperties getProperty(long id) {
