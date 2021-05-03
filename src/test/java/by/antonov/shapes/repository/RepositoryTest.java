@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 
 public class RepositoryTest {
 
-  private final CubeRepository Repository = CubeRepository.getInstance();
+  private final CubeRepository repository = CubeRepository.getInstance();
 
   private final Cube cube1 = newCube(1.0, 2.4, 2.0, 3);
   private final Cube cube2 = newCube(-1, 2, 1, 4);
@@ -38,7 +38,40 @@ public class RepositoryTest {
 
   @BeforeClass
   public void setUp() {
-    prepareDataForTest();
+    CubeWarehouse warehouse = CubeWarehouse.getInstance();
+    repository.clear();
+    repository.addAll(Arrays.asList(cube1, cube2, cube3, cube4, cube5, cube6));
+
+    warehouse.setProperty(1, new CubeProperties.Builder().setVolume(27)
+        .setSideSquare(9)
+        .setCubeSquare(54)
+        .setOppositePoint(new Point(4, 5.4, 5))
+        .build());
+    warehouse.setProperty(2, new CubeProperties.Builder().setVolume(64)
+        .setSideSquare(16)
+        .setCubeSquare(94)
+        .setOppositePoint(new Point(3, 6, 5))
+        .build());
+    warehouse.setProperty(3, new CubeProperties.Builder().setVolume(216)
+        .setSideSquare(36)
+        .setCubeSquare(216)
+        .setOppositePoint(new Point(6, 7, 10))
+        .build());
+    warehouse.setProperty(4, new CubeProperties.Builder().setVolume(125)
+        .setSideSquare(25)
+        .setCubeSquare(150)
+        .setOppositePoint(new Point(-0.2, 5, 19))
+        .build());
+    warehouse.setProperty(5, new CubeProperties.Builder().setVolume(64)
+        .setSideSquare(16)
+        .setCubeSquare(96)
+        .setOppositePoint(new Point(9.6, 5.7, 4))
+        .build());
+    warehouse.setProperty(6, new CubeProperties.Builder().setVolume(8000)
+        .setSideSquare(400)
+        .setCubeSquare(2400)
+        .setOppositePoint(new Point(32, 8, 10))
+        .build());
   }
 
   @DataProvider(name = "sortDataTest")
@@ -119,77 +152,40 @@ public class RepositoryTest {
 
   @Test(dataProvider = "sortDataTest")
   public void sortTest(Comparator<Cube> cubeComparator, List<Cube> expected) {
-    List<Cube> actual = Repository.sort(cubeComparator);
+    List<Cube> actual = repository.sort(cubeComparator);
 
     Assert.assertEquals(actual, expected);
   }
 
   @Test(dataProvider = "queryDataTest")
   public void findTest(CubeSpecification specification, List<Cube> expected) {
-    List<Cube> actual = Repository.query(specification);
+    List<Cube> actual = repository.query(specification);
 
     Assert.assertEquals(actual, expected);
   }
 
   @Test(dataProvider = "queryPredicateDataTest")
   public void findPredicateTest(Predicate<Cube> specification, List<Cube> expected) {
-    List<Cube> actual = Repository.query(specification);
+    List<Cube> actual = repository.query(specification);
 
     Assert.assertEquals(actual, expected);
   }
 
   @Test(dataProvider = "queryDataTest")
   public void findStreamTest(CubeSpecification specification, List<Cube> expected) {
-    List<Cube> actual = Repository.queryStream(specification);
+    List<Cube> actual = repository.queryStream(specification);
 
     Assert.assertEquals(actual, expected);
   }
 
   @Test(dataProvider = "queryPredicateDataTest")
   public void findStreamPredicateTest(Predicate<Cube> specification, List<Cube> expected) {
-    List<Cube> actual = Repository.queryStream(specification);
+    List<Cube> actual = repository.queryStream(specification);
 
     Assert.assertEquals(actual, expected);
   }
 
   private Cube newCube(double x, double y, double z, double sideLength) {
     return CubeFactory.getCubeElement(x, y, z, sideLength);
-  }
-
-  private void prepareDataForTest() {
-    CubeWarehouse warehouse = CubeWarehouse.getInstance();
-    Repository.clear();
-    Repository.addAll(Arrays.asList(cube1, cube2, cube3, cube4, cube5, cube6));
-
-    warehouse.setProperty(1, new CubeProperties.Builder().setVolume(27)
-        .setSideSquare(9)
-        .setCubeSquare(54)
-        .setOppositePoint(new Point(4, 5.4, 5))
-        .build());
-    warehouse.setProperty(2, new CubeProperties.Builder().setVolume(64)
-        .setSideSquare(16)
-        .setCubeSquare(94)
-        .setOppositePoint(new Point(3, 6, 5))
-        .build());
-    warehouse.setProperty(3, new CubeProperties.Builder().setVolume(216)
-        .setSideSquare(36)
-        .setCubeSquare(216)
-        .setOppositePoint(new Point(6, 7, 10))
-        .build());
-    warehouse.setProperty(4, new CubeProperties.Builder().setVolume(125)
-        .setSideSquare(25)
-        .setCubeSquare(150)
-        .setOppositePoint(new Point(-0.2, 5, 19))
-        .build());
-    warehouse.setProperty(5, new CubeProperties.Builder().setVolume(64)
-        .setSideSquare(16)
-        .setCubeSquare(96)
-        .setOppositePoint(new Point(9.6, 5.7, 4))
-        .build());
-    warehouse.setProperty(6, new CubeProperties.Builder().setVolume(8000)
-        .setSideSquare(400)
-        .setCubeSquare(2400)
-        .setOppositePoint(new Point(32, 8, 10))
-        .build());
   }
 }
