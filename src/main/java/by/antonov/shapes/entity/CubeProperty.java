@@ -1,13 +1,13 @@
 package by.antonov.shapes.entity;
 
-public class CubeProperties {
+public class CubeProperty {
 
   private final double volume;
   private final double sideSquare;
   private final double cubeSquare;
   private final Point oppositePoint;
 
-  private CubeProperties(double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
+  private CubeProperty(double volume, double sideSquare, double cubeSquare, Point oppositePoint) {
     this.volume = volume;
     this.sideSquare = sideSquare;
     this.cubeSquare = cubeSquare;
@@ -32,7 +32,7 @@ public class CubeProperties {
 
   @Override
   public String toString() {
-    final StringBuilder sb = new StringBuilder("CubeProperties{");
+    final StringBuilder sb = new StringBuilder("CubeProperty{");
     sb.append(", volume=").append(volume);
     sb.append(", sideSquare=").append(sideSquare);
     sb.append(", cubeSquare=").append(cubeSquare);
@@ -68,8 +68,8 @@ public class CubeProperties {
       return this;
     }
 
-    public CubeProperties build() {
-      return new CubeProperties(volume, sideSquare, cubeSquare, oppositePoint);
+    public CubeProperty build() {
+      return new CubeProperty(volume, sideSquare, cubeSquare, oppositePoint);
     }
   }
 }

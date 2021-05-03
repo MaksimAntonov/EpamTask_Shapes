@@ -1,6 +1,6 @@
 package by.antonov.shapes.warehouse;
 
-import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.CubeProperty;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +10,7 @@ public class CubeWarehouse {
   private static final Logger logger = LogManager.getLogger();
 
   private static final CubeWarehouse instance = new CubeWarehouse();
-  private final Map<Long, CubeProperties> mapCube = new HashMap<>();
+  private final Map<Long, CubeProperty> mapCube = new HashMap<>();
 
   private CubeWarehouse() {
   }
@@ -19,14 +19,14 @@ public class CubeWarehouse {
     return instance;
   }
 
-  public CubeProperties getProperty(long id) {
-    CubeProperties properties = mapCube.get(id);
+  public CubeProperty getProperty(long id) {
+    CubeProperty properties = mapCube.get(id);
     logger.info("Get property id=" + id + " from Warehouse " + properties.toString());
     return mapCube.get(id);
   }
 
-  public void setProperty(long id, CubeProperties cubeProperties) {
-    logger.info("Set property id=" + id + " to Warehouse " + cubeProperties.toString());
-    mapCube.put(id, cubeProperties);
+  public void setProperty(long id, CubeProperty cubeProperty) {
+    logger.info("Set property id=" + id + " to Warehouse " + cubeProperty.toString());
+    mapCube.put(id, cubeProperty);
   }
 }

@@ -9,7 +9,7 @@ import static by.antonov.shapes.repository.CubePredicateFactory.valueMoreThen;
 import by.antonov.shapes.comparator.CubeComparator;
 import by.antonov.shapes.entity.Cube;
 import by.antonov.shapes.entity.CubeFactory;
-import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.CubeProperty;
 import by.antonov.shapes.entity.Point;
 import by.antonov.shapes.repository.impl.CubeIdSpecificationImpl;
 import by.antonov.shapes.repository.impl.CubeSideLengthSpecificationImpl;
@@ -42,32 +42,32 @@ public class RepositoryTest {
     repository.clear();
     repository.addAll(Arrays.asList(cube1, cube2, cube3, cube4, cube5, cube6));
 
-    warehouse.setProperty(1, new CubeProperties.Builder().setVolume(27)
+    warehouse.setProperty(1, new CubeProperty.Builder().setVolume(27)
         .setSideSquare(9)
         .setCubeSquare(54)
         .setOppositePoint(new Point(4, 5.4, 5))
         .build());
-    warehouse.setProperty(2, new CubeProperties.Builder().setVolume(64)
+    warehouse.setProperty(2, new CubeProperty.Builder().setVolume(64)
         .setSideSquare(16)
         .setCubeSquare(94)
         .setOppositePoint(new Point(3, 6, 5))
         .build());
-    warehouse.setProperty(3, new CubeProperties.Builder().setVolume(216)
+    warehouse.setProperty(3, new CubeProperty.Builder().setVolume(216)
         .setSideSquare(36)
         .setCubeSquare(216)
         .setOppositePoint(new Point(6, 7, 10))
         .build());
-    warehouse.setProperty(4, new CubeProperties.Builder().setVolume(125)
+    warehouse.setProperty(4, new CubeProperty.Builder().setVolume(125)
         .setSideSquare(25)
         .setCubeSquare(150)
         .setOppositePoint(new Point(-0.2, 5, 19))
         .build());
-    warehouse.setProperty(5, new CubeProperties.Builder().setVolume(64)
+    warehouse.setProperty(5, new CubeProperty.Builder().setVolume(64)
         .setSideSquare(16)
         .setCubeSquare(96)
         .setOppositePoint(new Point(9.6, 5.7, 4))
         .build());
-    warehouse.setProperty(6, new CubeProperties.Builder().setVolume(8000)
+    warehouse.setProperty(6, new CubeProperty.Builder().setVolume(8000)
         .setSideSquare(400)
         .setCubeSquare(2400)
         .setOppositePoint(new Point(32, 8, 10))
@@ -129,7 +129,7 @@ public class RepositoryTest {
         {
             forCubeProperties(
                 createPredicate(
-                    CubeProperties::getVolume,
+                    CubeProperty::getVolume,
                     valueLessThen((double) 30))
             ),
             Arrays.asList(cube1)
@@ -137,10 +137,10 @@ public class RepositoryTest {
         {
             forCubeProperties(
                 createPredicate(
-                    CubeProperties::getCubeSquare,
+                    CubeProperty::getCubeSquare,
                     valueMoreThen((double) 100)).and(
                     createPredicate(
-                        CubeProperties::getCubeSquare,
+                        CubeProperty::getCubeSquare,
                         valueLessThen((double) 300)
                     )
                 )

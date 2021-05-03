@@ -1,7 +1,7 @@
 package by.antonov.shapes.action;
 
 import by.antonov.shapes.entity.Cube;
-import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.CubeProperty;
 import by.antonov.shapes.entity.Point;
 import by.antonov.shapes.exception.CustomException;
 import by.antonov.shapes.warehouse.CubeWarehouse;
@@ -47,9 +47,9 @@ public class CubeAction {
   }
 
   public static double calculateRatioOfCuboidAfterCutByAxel(Cube cube) throws CustomException {
-    CubeProperties cubeProperties = CubeWarehouse.getInstance().getProperty(cube.getId());
+    CubeProperty cubeProperty = CubeWarehouse.getInstance().getProperty(cube.getId());
     Point basePoint = cube.getPoint();
-    Point oppositePoint = cubeProperties.getOppositePoint();
+    Point oppositePoint = cubeProperty.getOppositePoint();
 
     double cuttedSideLengthX1, cuttedSideLengthX2,
         cuttedSideLengthY1, cuttedSideLengthY2,
@@ -91,13 +91,13 @@ public class CubeAction {
     return lengthByX * lengthByY * lengthByZ;
   }
 
-  public static CubeProperties calculateProperties(Cube cube) {
+  public static CubeProperty calculateProperties(Cube cube) {
     double cubeVolume = CubeAction.calculateCubeVolume(cube);
     double cubeSideSquare = CubeAction.calculateCubeSideSquare(cube);
     double cubeSquare = CubeAction.calculateCubeSquare(cube);
     Point oppositePoint = CubeAction.calculateOppositePoint(cube);
 
-    CubeProperties.Builder builder = new CubeProperties.Builder();
+    CubeProperty.Builder builder = new CubeProperty.Builder();
     builder.setVolume(cubeVolume)
         .setSideSquare(cubeSideSquare)
         .setCubeSquare(cubeSquare)

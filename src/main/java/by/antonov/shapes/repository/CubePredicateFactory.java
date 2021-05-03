@@ -1,7 +1,7 @@
 package by.antonov.shapes.repository;
 
 import by.antonov.shapes.entity.Cube;
-import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.CubeProperty;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -23,10 +23,10 @@ public class CubePredicateFactory {
 
   // Predicate for elements from Warehouse
   public static Predicate<Cube> forCubeProperties(
-      Predicate<CubeProperties> cubePropertiesPredicate) {
+      Predicate<CubeProperty> cubePropertiesPredicate) {
     return (cube) -> {
-      CubeProperties cubeProperties = CubeWarehouse.getInstance().getProperty(cube.getId());
-      return cubePropertiesPredicate.test(cubeProperties);
+      CubeProperty cubeProperty = CubeWarehouse.getInstance().getProperty(cube.getId());
+      return cubePropertiesPredicate.test(cubeProperty);
     };
   }
 

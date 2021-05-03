@@ -1,7 +1,7 @@
 package by.antonov.shapes.repository.impl;
 
 import by.antonov.shapes.entity.Cube;
-import by.antonov.shapes.entity.CubeProperties;
+import by.antonov.shapes.entity.CubeProperty;
 import by.antonov.shapes.repository.CubeSpecification;
 import by.antonov.shapes.warehouse.CubeWarehouse;
 import org.apache.logging.log4j.LogManager;
@@ -34,9 +34,9 @@ public class CubeSideSquareSpecificationImpl implements CubeSpecification {
   @Override
   public boolean test(Cube cube) {
     CubeWarehouse cubeWarehouse = CubeWarehouse.getInstance();
-    CubeProperties cubeProperties = cubeWarehouse.getProperty(cube.getId());
+    CubeProperty cubeProperty = cubeWarehouse.getProperty(cube.getId());
 
-    double sideSquare = cubeProperties.getSideSquare();
+    double sideSquare = cubeProperty.getSideSquare();
     return ((sideSquare >= minSideSquare) && (sideSquare <= maxSideSquare));
   }
 }
